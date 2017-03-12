@@ -28,10 +28,10 @@ public class ArrayUtil {
 	 */
 
 	public static int[] removeZero(int[] oldArray) {
-		int last = 0;// 记录最后一个元素的位置
+		int last = 0;// 璁板綍鏈�悗涓�釜鍏冪礌鐨勪綅缃�
 		int length = oldArray.length;
-		int zero = 0;// 记录数组中第一个0的位置
-		int nonzero = 1;// 记录zero后面第一个非零的位置
+		int zero = 0;// 璁板綍鏁扮粍涓涓�釜0鐨勪綅缃�
+		int nonzero = 1;// 璁板綍zero鍚庨潰绗竴涓潪闆剁殑浣嶇疆
 		while (zero < length - 1) {
 			if (oldArray[zero] == 0) {
 				// System.out.println("zero:" + zero);
@@ -67,12 +67,12 @@ public class ArrayUtil {
 	 */
 
 	public static int[] merge(int[] array1, int[] array2) {
-		int index1 = 0;// 指向下一个元素
-		int index2 = 0;// 指向下一个元素
+		int index1 = 0;// 鎸囧悜涓嬩竴涓厓绱�
+		int index2 = 0;// 鎸囧悜涓嬩竴涓厓绱�
 		int len1 = array1.length;
 		int len2 = array2.length;
 		int[] target = new int[len1 + len2];
-		int index = 0;// 指向下一个空位置
+		int index = 0;// 鎸囧悜涓嬩竴涓┖浣嶇疆
 		int min = 0;
 		while (index1 < len1 && index2 < len2) {
 			if (array1[index1] < array2[index2]) {
@@ -87,7 +87,6 @@ public class ArrayUtil {
 			System.arraycopy(array1, index1, target, index, len1 - index1);
 		return target;
 	}
-
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
 	 * 注意，老数组的元素在新数组中需要保持 例如 oldArray = [2,3,6] , size = 3,则返回的新数组为
@@ -115,13 +114,14 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] fibonacci(int max) {
-		int first = 0;// 记录第一个数
+		long first = 0;// 璁板綍绗竴涓暟
 		int[] target = new int[max];
 		int count = 0;
-		int i = 1;// 记录后一个数
-		while (i < max) {
-			int tmp = i;
-			target[count++] = i;
+		long i = 1;// 璁板綍鍚庝竴涓暟
+		long max1 = max;
+		while (i < max1) {
+			long tmp = i;
+			target[count++] = (int) i;
 			i = i + first;
 			first = tmp;
 		}
@@ -136,21 +136,21 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public static int[] getPrimes(int max) {// 素数筛选法
+	public static int[] getPrimes(int max) {// 绱犳暟绛涢�娉�
 		boolean[] primes = new boolean[max];
 		int[] target = new int[max / 2];
 		int count = 0;
-		for (int i = 1; i < max; i += 2) {// 全部偶数默认false，奇数设为true
+		for (int i = 1; i < max; i += 2) {// 鍏ㄩ儴鍋舵暟榛樿false锛屽鏁拌涓簍rue
 			primes[i] = true;
 		}
-		primes[2] = true;// 2为偶数但是是素数
-		for (int i = 3; i < (int) Math.sqrt(max); i += 2) {// 0，1非素数非合数，还有2是素数，所以从3开始
+		primes[2] = true;// 2涓哄伓鏁颁絾鏄槸绱犳暟
+		for (int i = 3; i < (int) Math.sqrt(max); i += 2) {// 0锛�闈炵礌鏁伴潪鍚堟暟锛岃繕鏈�鏄礌鏁帮紝鎵�互浠�寮�
 			if (primes[i])
-				for (int j = i + i; j < max; j += i) {// 将i的整倍数不是素数，设为false
+				for (int j = i + i; j < max; j += i) {// 灏唅鐨勬暣鍊嶆暟涓嶆槸绱犳暟锛岃涓篺alse
 					primes[j] = false;
 				}
 		}
-		for (int i = 2; i < max; i++) {// 最后所有下标从2开始的true为素数
+		for (int i = 2; i < max; i++) {// 鏈�悗鎵�湁涓嬫爣浠�寮�鐨則rue涓虹礌鏁�
 			if (primes[i])
 				target[count++] = i;
 		}
@@ -165,31 +165,33 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
+
 	public static int[] getPerfectNumbers(int max) {
 		long start = System.currentTimeMillis();
-		int sum = 0;
+		long sum = 0;
+		long max1=max;
 		int[] array = new int[50];
 		int count = 0;
 		int count1 = 5;
-		for (int i = 1; i < max;) {
+		for (long i = 1; i < max1;) {
 			try {
-//				System.out.println("i:" + i + " sum:" + sum);
+				// System.out.println("i:" + i + " sum:" + sum);
 				if (i % 10 != 6 && i % 10 != 8) {
 					continue;
 				} else if (i != 6) {
-//					System.out.println(i + " " + i % 3 + " " + i % 9);
+					// System.out.println(i + " " + i % 3 + " " + i % 9);
 					if (i % 3 != 1 || i % 9 != 1) {
 						continue;
 					}
 				}
-				sum = 1;// 1已一定为因子
-				// System.out.print("数"+i+"的因子：");
-				// System.out.print(1+" ");
-				for (int j = 2; j < Math.sqrt(i); j++) {
+				sum = 1;// 1宸蹭竴瀹氫负鍥犲瓙
+//				 System.out.print("鏁�+i+"鐨勫洜瀛愶細");
+//				 System.out.print(1+" ");
+				for (long j = 2; j < Math.sqrt(i); j++) {
 					if (i % j == 0) {
 						sum += j;
 						sum += i / j;
-						// System.out.print(j+" "+i/j+" ");
+//						 System.out.print(j+" "+i/j+" ");
 					}
 
 				}
@@ -197,24 +199,24 @@ public class ArrayUtil {
 					sum += (int) Math.sqrt(i);
 				}
 				// System.out.println();
-//				System.out.println("i:" + i + " sum:" + sum);
+				 System.out.println("i:" + i + " sum:" + sum);
 				if (sum == i)
-					array[count++] = i;
+					array[count++] = (int)i;
 			} finally {
 				if (i < 28)
 					i++;
 				else {
 					i = i + (int) Math.pow(count1, 3);
 					count1 += 2;
-//					System.out.println(i);
+					 System.out.println(i);
 				}
 			}
 		}
 
 		int[] answer = new int[count];
 		System.arraycopy(array, 0, answer, 0, count);
-		long cost = System.currentTimeMillis()-start;
-		System.out.println("cost time: "+cost+"ms");
+		long cost = System.currentTimeMillis() - start;
+		System.out.println("cost time: " + cost + "ms");
 
 		return answer;
 	}
