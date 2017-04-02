@@ -1,7 +1,3 @@
-build/
-.idea/
-.gradle/
-*.class
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -16,9 +12,39 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
+
+
+*.xml
+*.iml
+.idea
+*.iml
+rebel.xml
+rebel-remote.xml
+
+.classpath
+.project
+.setting
+.metadata
+
+target
+*.class
+
+log
+*.log
+tmp
+*.tmp
+
+.metadata
+RemoteSystemsTempFiles
+.gitignore
+
+.recommenders
 .idea/
 *.iml
 rebel.*
 .rebel.*
 
 target
+*.DS_Store
+liuxin/.DS_Store
+liuxin/src/.DS_Store
