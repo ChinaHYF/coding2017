@@ -5,56 +5,67 @@ import java.io.InputStream;
 import java.net.URLConnection;
 
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionManager;
 
-public class ConnectionImpl implements Connection
-{
-	private URLConnection urlConnection;
-	
-	private ConnectionManagerImpl cm;
+public class ConnectionImpl implements Connection{
+
+	private URLConnection conn;
+	private int startPos = 0, length = 0;
 	
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-		if(this.getUrlConnection() != null)
+		setStartPos(startPos);
+		setLength(endPos - startPos + 1);
+		//conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
+		//conn.connect();
+		InputStream is = conn.getInputStream();
+		byte[] buffer = new byte[getLength()];
+		int offset = 0;
+		int bytesRead = 0;
+		while(offset < getLength())
 		{
-			InputStream sm = this.getUrlConnection().getInputStream();
-			byte[] buffer = new byte[endPos - startPos + 1];
-			sm.read(buffer, 0, buffer.length);
-			if(buffer.length > 0)
+			
+			bytesRead = is.read(buffer, offset, getLength() - offset);
+			System.out.println("read " + bytesRead + " bytes with " + this.toString());
+			if(bytesRead <= 0)
 			{
-				this.cm.write(buffer);
-			}
-			return buffer;
+				break;
+			} 
+			offset += bytesRead;
 		}
-		return null;
+		is.close();
+		return buffer;
 	}
 
 	@Override
 	public int getContentLength() {
-		if(this.getUrlConnection() != null)
-		{
-			return this.getUrlConnection().getContentLength();
-		}
-		return 0;
+		return conn.getContentLength();
 	}
 
 	@Override
-	public void close() {
-		//this.getUrlConnection().
-		
+	public void close() {}
+
+	public URLConnection getConn() {
+		return conn;
 	}
 
-	public URLConnection getUrlConnection() {
-		return urlConnection;
+	public void setConn(URLConnection conn) {
+		this.conn = conn;
 	}
 
-	public void setUrlConnection(URLConnection urlConnection) {
-		this.urlConnection = urlConnection;
+	public int getStartPos() {
+		return startPos;
 	}
-	
-	public void setCm(ConnectionManagerImpl cm)
-	{
-		this.cm = cm;
+
+	public void setStartPos(int startPos) {
+		this.startPos = startPos;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
 	}
 
 }
