@@ -1,8 +1,8 @@
 package com.coding.basic;
 
-public class Queue {
+public class Queue<T extends Comparable<T>> {
 	LinkedList linkedList=new LinkedList();
-	public void enQueue(Object o){
+	public void enQueue(T o){
 		linkedList.addLast(o);
 	}
 	
