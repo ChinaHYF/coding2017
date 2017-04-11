@@ -10,6 +10,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coderising.jvm.clz.ClassFile;
+
 
 
 public class ClassFileLoader {
@@ -67,6 +69,20 @@ public class ClassFileLoader {
 			}
 		}
 		return finalPath;
+	}
+
+
+	public ClassFile loadClass(String className) {
+		// TODO Auto-generated method stub
+		ClassFileParser parser = new ClassFileParser();
+		ClassFile clzFile = null;
+		try {
+			clzFile = parser.parse(this.readBinaryCode(className));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return clzFile;
 	}
 
 	
